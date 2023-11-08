@@ -1,0 +1,13 @@
+/* SpotifyLoginButton.css */
+
+.spotify-login-button {
+    margin-top: 20px;
+    align-self: center;
+    background-color: white;
+  }
+  
+  .spotify-login-button:hover {
+    background-color: #2e3a33; /* Darker shade on hover */
+    /* Additional hover styles */
+  }
+  

@@ -1,0 +1,88 @@
+/* MusicPlayer.css */
+.music-player-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 100% of the viewport height */
+  }
+  
+.music-player {
+    border: 2px solid #c0c0c0; /* Silver-ish border */
+    background-color: #c0c0c0; /* Silver-ish background color */
+    border-radius: 0;
+    /*padding: 20px;*/
+    display: flex;
+    flex-direction: column;
+    max-width: 350px; /* Adjust the width as needed */
+    max-height: 100px;
+    margin: 0 auto; /* Center the player on the page */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  .volume-container {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+  }
+  
+  .volume-icon {
+    width: 24px; /* Adjust the width and height to your preferred icon size */
+    height: 24px;
+    margin-right: 10px; /* Add margin for spacing */
+  }
+  
+  .volume-slider {
+    width: 100%;
+    margin-right: 25px;
+  }
+  
+  .player-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .play-pause-button {
+    background-color: white;
+    border: 1px solid #c0c0c0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 25px;
+  }
+
+  .play-pause-icon {
+    font-size: 20px; 
+  }
+  
+  .volume-slider {
+    width: 100%;
+  }
+  
+  .playlist-display {
+    text-align: center; /* Center the playlist items */
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .current-song {
+    font-weight: bold; /* Style the currently playing song differently */
+    color: #0074d9; /* Change the color for emphasis */
+  }
