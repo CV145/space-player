@@ -12,6 +12,7 @@ const SpotifyLoginButton = () => {
   const { setAccessToken } = useContext(AppContext);
 
   const onLoginClick = () => {
+    console.log("login clicked");
     // Redirect to the Spotify authorization page
     initiateSpotifyLogin();
 
@@ -21,10 +22,11 @@ const SpotifyLoginButton = () => {
     if (token)
     {
       setAccessToken(token);
+      console.log("Access token set");
     }
     else
     {
-      throw Error ("There was an error logging in");
+      throw Error ("There was an error logging in... Why?");
     }
   };
 

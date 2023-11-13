@@ -1,53 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/Search.css'; // Import your CSS file
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function Search() {
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+function Search({ token }) {
+    const [query, setQuery] = useState('');
+    const [song, setSong] = useState(null);
 
-  useEffect(() => {
-    if (query.length > 0) {
-      // Make requests to the Spotify API with the partial query
-      // Update the 'suggestions' state with the results
-      // Display the suggestions in the UI
-    } else {
-      // Clear the suggestions when the query is empty
-      setSuggestions([]);
-    }
-  }, [query]);
+    const searchSong = async () => {
+        try {
+            const response = await axios.get("https://api.spotify.com/v1/search", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                params: {
+                    q: query,
+                    type: "track",
+                    limit: 1
+                }
+            });
 
-  const handleInputChange = (event) => {
-    setQuery(event.target.value);
-  };
+            if (response.data.tracks.items.length > 0) {
+                setSong(response.data.tracks.items[0]);
+            } else {
+                setSong(null);
+            }
+        } catch (error) {
+            console.error('Error fetching song:', error);
+            setSong(null);
+        }
+    };
 
-  const handleSuggestionClick = (suggestion) => {
-    // Set the search bar value to the clicked suggestion
-    setQuery(suggestion);
-    // Initiate the search or perform other actions
-  };
+    return (
+        <div>
+            <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search for a song"
+            />
+            <button onClick={searchSong}>Search</button>
 
-  return (
-    <div className="search-container"> {/* Apply the container class */}
-      <input
-        type="text"
-        placeholder="Search for music..."
-        value={query}
-        onChange={handleInputChange}
-        className="search-input" // Apply the input class
-      />
-      <ul className="suggestions-container"> {/* Apply the suggestions container class */}
-        {suggestions.map((suggestion, index) => (
-          <li
-            key={index}
-            className="suggestion-item" // Apply the suggestion item class
-            onClick={() => handleSuggestionClick(suggestion)}
-          >
-            {suggestion}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+            {song && (
+                <div>
+                    <h3>{song.name}</h3>
+                    <p>Artist: {song.artists.map(artist => artist.name).join(", ")}</p>
+                    <p>Album: {song.album.name}</p>
+                    {/* Additional song information can be rendered here */}
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Search;
