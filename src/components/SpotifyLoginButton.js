@@ -1,9 +1,10 @@
 // SpotifyLoginButton.js
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import '../styles/SpotifyLoginButton.css';
 import spotifyLogo from '../assets/images/spotify.png';
 import { getAccessTokenFromRedirectURI, initiateSpotifyLogin } from './authentication/SpotifyAuth'; 
 import {AppContext} from '../AppContext';
+import { authenticateWithSpotify } from '../services/spotifyService';
 
 
 
@@ -13,22 +14,17 @@ const SpotifyLoginButton = () => {
 
   const onLoginClick = () => {
     console.log("login clicked");
-    // Redirect to the Spotify authorization page
     initiateSpotifyLogin();
+  };
 
-    //Get and store access token 
+  useEffect(() => {
     const token = getAccessTokenFromRedirectURI();
-
-    if (token)
-    {
+    if (token) {
       setAccessToken(token);
       console.log("Access token set");
+      authenticateWithSpotify(token); //Set token in spotifyService
     }
-    else
-    {
-      throw Error ("There was an error logging in... Why?");
-    }
-  };
+  }, []); 
 
   return (
     <button onClick={onLoginClick} className="spotify-login-button">

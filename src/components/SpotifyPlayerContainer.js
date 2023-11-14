@@ -34,7 +34,6 @@ function SpotifyPlayerContainer() {
   return (
     <div>
       <MusicPlayer token={token}/>
-      <Search token={token}/>
     </div>
   );
 }

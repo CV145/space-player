@@ -8,8 +8,10 @@ import axios from 'axios';
 
 const spotifyApi = new SpotifyWebApi();
 
+//Sets the access token
 export const authenticateWithSpotify = (accessToken) => {
-    spotifyApi.setAccessToken(accessToken);
+  spotifyApi.setAccessToken(accessToken);
+  console.log("Access token set in Spotify service:", accessToken);
 };
 
 /*
@@ -18,6 +20,25 @@ Returns a object with info about the tracks matching a search query. Tracks is a
 export const searchTracks = (query) => {
     return spotifyApi.searchTracks(query);
   };
+
+
+
+  // Function to fetch song recommendations based on a search query
+  export const getRecommendations = async (searchQuery) => {
+    try {
+      if (!searchQuery) {
+        return []; // Return an empty array if the query is empty
+      }
+      const response = await spotifyApi.searchTracks(searchQuery);
+      return response.tracks.items;
+    } catch (error) {
+      console.error('Error fetching recommendations:', error.response ? error.response : error);
+      throw error; // Re-throw the error for handling in the component
+    }
+  };
+  
+
+
   
   export const playTrack = (trackId, accessToken) => {
     const url = 'https://api.spotify.com/v1/me/player/play';
